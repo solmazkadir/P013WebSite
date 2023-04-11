@@ -72,16 +72,19 @@ namespace P013WebSite.Areas.Admin.Controllers
         // GET: CategoriesController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var model = context.Categories.Find(id);
+            return View(model);
         }
 
         // POST: CategoriesController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Category collection)
         {
             try
             {
+                context.Categories.Remove(collection); //ekrandan gelen kategoriyi sil
+                context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch

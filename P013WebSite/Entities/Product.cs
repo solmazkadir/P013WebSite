@@ -19,7 +19,7 @@ namespace P013WebSite.Entities
         public string? Image { get; set; }
         [Display(Name = "Eklenme Tarihi"),ScaffoldColumn(false)] //ScaffoldColumn oluşacak viewlarda CreateDate alanının otomatik oluşturulmasını engeller
 
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateDate { get; set; } = DateTime.Now;    //DateTime.Now olmazsa eklenme tarihi otomatik gelmez
         [Display(Name = "Kategori")]
 
         public int CategoryId { get; set; } //Kategori Id db deki foreign key olacak
