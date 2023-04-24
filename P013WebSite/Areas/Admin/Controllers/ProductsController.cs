@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,7 @@ using P013WebSite.Tools;
 
 namespace P013WebSite.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize]
     public class ProductsController : Controller
     {
         private readonly DatabaseContext _databaseContext; //_databaseContext i boş olarak ekledik, sağ klik>ampul> generate consructor diyerek DI(DependencyInjection) işlemini yapıyoruz
