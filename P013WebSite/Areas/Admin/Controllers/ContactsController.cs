@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using P013WebSite.Data;
+using P013WebSite.Entities;
+using P013WebSite.Tools;
 
 namespace P013WebSite.Areas.Admin.Controllers
 {
@@ -38,10 +40,12 @@ namespace P013WebSite.Areas.Admin.Controllers
         // POST: ContactsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(Contact collection)
         {
             try
             {
+                await _context.Contacts.AddAsync(collection);
+                await _context.SaveChangesAsync();  
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -53,16 +57,19 @@ namespace P013WebSite.Areas.Admin.Controllers
         // GET: ContactsController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var model = _context.Contacts.Find(id);
+            return View(model);
         }
 
         // POST: ContactsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Contact collection)
         {
             try
             {
+                _context.Contacts.Update(collection);
+                _context.SaveChanges(); 
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -74,16 +81,19 @@ namespace P013WebSite.Areas.Admin.Controllers
         // GET: ContactsController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var model = _context.Contacts.Find(id);
+            return View(model);
         }
 
         // POST: ContactsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Contact collection)
         {
             try
             {
+                _context.Contacts.Remove(collection);
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
