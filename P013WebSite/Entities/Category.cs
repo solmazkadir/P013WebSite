@@ -15,5 +15,6 @@ namespace P013WebSite.Entities
         public DateTime? CreateDate { get; set; }= DateTime.Now; //sonradan 1 class a bu şekilde property eklersek yeni bir migration eklememiz gerekir! Yoksa proje çalışırken hata alırız.
         //PM> add-migration CategoryCreateDateEklendi
         //PM> update-database
+        public virtual List<Product>? Products { get; set; } //1 kategorinin 1den çok ürünü olabilir(bire çok ilişki)
     }
 }

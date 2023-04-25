@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage;
+using P013WebSite.Data;
 using P013WebSite.Models;
 using System.Diagnostics;
 
@@ -6,16 +8,17 @@ namespace P013WebSite.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly DatabaseContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(DatabaseContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var model = _context.Sliders.ToList();
+            return View(model);
         }
 
         public IActionResult Privacy()
