@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using P013WebSite.Data;
 using P013WebSite.Models;
@@ -15,9 +16,14 @@ namespace P013WebSite.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var model = _context.Sliders.ToList();
+            var model = new HomePageViewModel()
+            {
+                Sliders = await _context.Sliders.ToListAsync(),
+                Products = await _context.Products.Where(p=>p.IsActive && p.IsHome).ToListAsync()
+            };
+
             return View(model);
         }
 

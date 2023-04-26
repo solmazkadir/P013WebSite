@@ -26,5 +26,9 @@ namespace P013WebSite.Entities
         [Display(Name = "Kategori")]
 
         public Category? Category { get; set; } //ürün ile kategori class ını 1 e 1 ilişki ile bağladık
+        [Display(Name = "Durum")]
+        public bool IsActive { get; set; }
+        [Display(Name = "Anasayfa")]
+        public bool IsHome { get; set; }
     }
 }
