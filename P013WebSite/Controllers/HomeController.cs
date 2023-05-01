@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using P013WebSite.Data;
+using P013WebSite.Entities;
 using P013WebSite.Models;
 using System.Diagnostics;
 
@@ -21,7 +22,7 @@ namespace P013WebSite.Controllers
             var model = new HomePageViewModel()
             {
                 Sliders = await _context.Sliders.ToListAsync(),
-                Products = await _context.Products.Where(p=>p.IsActive && p.IsHome).ToListAsync()
+                Products = await _context.Products.Where(p => p.IsActive && p.IsHome).ToListAsync()
             };
 
             return View(model);
@@ -29,6 +30,29 @@ namespace P013WebSite.Controllers
 
         public IActionResult Privacy()
         {
+            return View();
+        }
+        public IActionResult ContactUs()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ContactUs(Contact contact)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _context.Contacts.AddAsync(contact);
+                    await _context.SaveChangesAsync();
+                    TempData["Mesaj"] = "<div class='alert alert-success'>Mesajınız Gönderildi.. Teşekkürler...</div>";
+                    return RedirectToAction("ContactUs");
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError("", "Hata Oluştu!");
+                }
+            }
             return View();
         }
 

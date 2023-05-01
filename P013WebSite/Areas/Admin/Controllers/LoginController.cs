@@ -30,7 +30,7 @@ namespace P013WebSite.Areas.Admin.Controllers
                 var kullanici = await _context.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password && x.IsActive);
                 if (kullanici == null)
                 {
-                    TempData["Mesaj"] = "Giriş Başarısız!";
+                    TempData["Mesaj"] = "<div class='alert alert-danger'>Giriş Başarısız!</div>";
                 }
                 else
                 {
